@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- mybatis的主配置文件 -->
+<configuration>
+    <!--引入数据源配置文件的位置-->
+    <properties resource="db.properties"/>
+
+    <!--定义实体类的别名-->
+    <typeAliases>
+        <package name="com.luluzsp.mybaits.entity"/>
+    </typeAliases>
+    <!--配置环境-->
+    <environments default="mysql">
+        <!--配置Mysql数据库环境-->
+        <environment id="mysql">
+            <!--配置事物管理器-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--配置数据库连接池-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <!-- 指定映射配置文件的位置，映射配置文件指的是每个dao独立的配置文件 -->
+    <mappers>
+        <package name="com.luluzsp.mybaits.Dao"/>
+    </mappers>
+</configuration>

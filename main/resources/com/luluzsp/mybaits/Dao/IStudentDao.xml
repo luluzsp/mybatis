@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luluzsp.mybaits.Dao.IStudentDao">
+    <!--配置查询所有-->
+    <select id="findAll" resultType="com.luluzsp.mybaits.entity.Student">
+        select * from student
+    </select>
+
+    <insert id="saveStudent" parameterType="com.luluzsp.mybaits.entity.Student">
+        insert into student values (#{id},#{name},#{gender},#{age},#{className})
+    </insert>
+
+    <update id="updateStudent" parameterType="com.luluzsp.mybaits.entity.Student">
+        update student  set name =#{name},gender=#{gender},age=#{age},class=#{className} where id = #{id}
+    </update>
+
+    <update id="deleteStudent" parameterType="java.lang.Integer">
+        delete from student  where id = #{id}
+    </update>
+
+    <select id="findStudentByCriteria" parameterType="Student" resultType="Student">
+      select  * from  student
+      <where>
+      <if test="name !=null">
+         and  name = #{name}
+      </if>
+      <if test="age !=null">
+          and age = #{age}
+      </if>
+      <if test="gender !=null">
+          and gender = #{gender}
+      </if>
+      </where>
+    </select>
+
+    <select id="findStudentByIds" parameterType="StudentVO" resultType="Student">
+        select  * from student
+        <foreach collection="ids" item="uid" separator="," open="where id in(" close=")">
+            #{uid}
+        </foreach>
+    </select>
+</mapper>
